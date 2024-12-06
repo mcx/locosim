@@ -68,3 +68,6 @@
 [submodule "robot_descriptions/orchard_world"]
 	path = robot_descriptions/orchard_world
 	url = git@github.com:mfocchi/orchard_world.git
+[submodule "robot_descriptions/sensors_description"]
+	path = robot_descriptions/sensors_description
+	url = git@github.com:mfocchi/sensors_description.git
