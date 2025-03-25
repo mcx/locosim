@@ -25,7 +25,7 @@
   <link name="base_link">
     <visual>
       <geometry>
-        <mesh filename="package://example-robot-data/robots/ur_description/meshes/ur5/collision/base.stl"/>
+        <mesh filename="package://ur_description/meshes/ur5/collision/base.stl"/>
       </geometry>
       <material name="LightGrey">
         <color rgba="0.7 0.7 0.7 1.0"/>
@@ -33,7 +33,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://example-robot-data/robots/ur_description/meshes/ur5/collision/base.stl"/>
+        <mesh filename="package://ur_description/meshes/ur5/collision/base.stl"/>
       </geometry>
     </collision>
     <inertial>
@@ -59,7 +59,7 @@
   <link name="shoulder_link">
     <visual>
       <geometry>
-        <mesh filename="package://example-robot-data/robots/ur_description/meshes/ur5/collision/shoulder.stl"/>
+        <mesh filename="package://ur_description/meshes/ur5/collision/shoulder.stl"/>
       </geometry>
       <material name="LightGrey">
         <color rgba="0.7 0.7 0.7 1.0"/>
@@ -67,7 +67,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://example-robot-data/robots/ur_description/meshes/ur5/collision/shoulder.stl"/>
+        <mesh filename="package://ur_description/meshes/ur5/collision/shoulder.stl"/>
       </geometry>
     </collision>
     <inertial>
@@ -91,7 +91,7 @@
   <link name="upper_arm_link">
     <visual>
       <geometry>
-        <mesh filename="package://example-robot-data/robots/ur_description/meshes/ur5/collision/upperarm.stl"/>
+        <mesh filename="package://ur_description/meshes/ur5/collision/upperarm.stl"/>
       </geometry>
       <material name="LightGrey">
         <color rgba="0.7 0.7 0.7 1.0"/>
@@ -99,7 +99,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://example-robot-data/robots/ur_description/meshes/ur5/collision/upperarm.stl"/>
+        <mesh filename="package://ur_description/meshes/ur5/collision/upperarm.stl"/>
       </geometry>
     </collision>
     <inertial>
@@ -126,7 +126,7 @@
   <link name="forearm_link">
     <visual>
       <geometry>
-        <mesh filename="package://example-robot-data/robots/ur_description/meshes/ur5/collision/forearm.stl"/>
+        <mesh filename="package://ur_description/meshes/ur5/collision/forearm.stl"/>
       </geometry>
       <material name="LightGrey">
         <color rgba="0.7 0.7 0.7 1.0"/>
@@ -134,7 +134,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://example-robot-data/robots/ur_description/meshes/ur5/collision/forearm.stl"/>
+        <mesh filename="package://ur_description/meshes/ur5/collision/forearm.stl"/>
       </geometry>
     </collision>
     <inertial>
@@ -160,7 +160,7 @@
   <link name="wrist_1_link">
     <visual>
       <geometry>
-        <mesh filename="package://example-robot-data/robots/ur_description/meshes/ur5/collision/wrist1.stl"/>
+        <mesh filename="package://ur_description/meshes/ur5/collision/wrist1.stl"/>
       </geometry>
       <material name="LightGrey">
         <color rgba="0.7 0.7 0.7 1.0"/>
@@ -168,7 +168,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://example-robot-data/robots/ur_description/meshes/ur5/collision/wrist1.stl"/>
+        <mesh filename="package://ur_description/meshes/ur5/collision/wrist1.stl"/>
       </geometry>
     </collision>
     <inertial>
