@@ -14,32 +14,25 @@ namespace gazebo
     void Load(physics::ModelPtr _model, sdf::ElementPtr /*_sdf*/) override
     {
       this->model = _model;
-      this->link = this->model->GetLink("base_link");
 
-      if (this->link)
+      // Set up ROS node
+      if (!ros::isInitialized())
       {
-        // Set up ROS node
-        if (!ros::isInitialized())
-        {
-          ROS_FATAL_STREAM("A ROS node for Gazebo has not been initialized, unable to load plugin.");
-          return;
-        }
-
-        this->rosNode = new ros::NodeHandle();
-
-        // Advertise the set_mass service
-        this->setMassService = this->rosNode->advertiseService("/set_mass", &DynamicMassPlugin::SetMassCallback, this);
-
-        std::cout << "\033[31mDynamicMassPlugin loaded and ready to set mass. \033[0m" << std::endl;
+        ROS_FATAL_STREAM("A ROS node for Gazebo has not been initialized, unable to load plugin.");
+        return;
       }
-      else
-      {
-        ROS_ERROR("Link not found!");
-      }
+
+      this->rosNode = new ros::NodeHandle();
+
+      // Advertise the set_mass service
+      this->setMassService = this->rosNode->advertiseService("/set_mass", &DynamicMassPlugin::SetMassCallback, this);
+
+      std::cout << "\033[31mDynamicMassPlugin loaded and ready to set mass. \033[0m" << std::endl;
     }
 
     bool SetMassCallback(gazebo_msgs::SetLinkProperties::Request &req, gazebo_msgs::SetLinkProperties::Response &res)
     {
+      this->link = this->model->GetLink(req.link_name);
       if (this->link)
       {
         // Set the new mass (you can dynamically calculate or pass this value)
@@ -54,7 +47,7 @@ namespace gazebo
       }
       else
       {
-        ROS_ERROR("Link not found when setting mass.");
+        ROS_ERROR("DynamicMassPlugin: Link not found when setting mass.");
         return false;
       }
 
