@@ -68,3 +68,6 @@
 [submodule "robot_descriptions/sensors_description"]
 	path = robot_descriptions/sensors_description
 	url = git@github.com:mfocchi/sensors_description.git
+[submodule "robot_descriptions/invpend_description"]
+	path = robot_descriptions/invpend_description
+	url = git@github.com:mfocchi/invpend_description.git
