@@ -11,7 +11,7 @@ while getopts ":hrg" option; do
       install_graspin=true
       ;;
     *)
-      echo "Usage: loco_install <ubuntu_version_number> [-r] [-g] [-h]"
+      echo "Usage: loco-install <ubuntu_version_number> [-r] [-g] [-h]"
       exit 1
       ;;
   esac
@@ -59,10 +59,10 @@ if [ "$1" == "18" ]; then
 	ROS_VERSION="bionic"
 elif [ "$1" == "20" ]; then
 	PYTHON_PREFIX="python3"
-        PYTHON_VERSION="3.8"
-        ROBOTPKG_PYTHON_VERSION="py38"
-        PIP_PREFIX="pip3"
-        ROS_VERSION="noetic"
+    PYTHON_VERSION="3.8"
+    ROBOTPKG_PYTHON_VERSION="py38"
+    PIP_PREFIX="pip3"
+    ROS_VERSION="noetic"
 fi
 
 # Download packages
