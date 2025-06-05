@@ -66,7 +66,7 @@ elif [ "$1" == "20" ]; then
 fi
 
 # Download packages
-sudo apt install -y "ros-$ROS_VERSION-desktop-full" 
+sudo apt install -y "ros-$ROS_VERSION-desktop-full"
 
 sudo apt install -y "ros-$ROS_VERSION-urdfdom-py" \
 "ros-$ROS_VERSION-srdfdom" \
@@ -77,7 +77,8 @@ sudo apt install -y "ros-$ROS_VERSION-urdfdom-py" \
 "ros-$ROS_VERSION-control-toolbox" \
 "ros-$ROS_VERSION-gazebo-ros" \
 "ros-$ROS_VERSION-controller-manager" \
-"ros-$ROS_VERSION-joint-trajectory-controller"
+"ros-$ROS_VERSION-joint-trajectory-controller" \ 
+"ros-$ROS_VERSION-catkin"
 
 if [ $install_realsense_camera ]; then
 	sudo apt install -y "ros-$ROS_VERSION-openni2-launch" \
@@ -100,7 +101,8 @@ sudo apt install -y "robotpkg-$ROBOTPKG_PYTHON_VERSION-eigenpy" \
 sudo apt install -y "$PYTHON_PREFIX-scipy" \
 "$PYTHON_PREFIX-matplotlib" \
 "$PYTHON_PREFIX-termcolor" \
-"$PYTHON_PREFIX-pip"
+"$PYTHON_PREFIX-pip" \
+"$PYTHON_PREFIX-catkin-tools"
 
 $PIP_PREFIX install cvxpy==1.2.0
 
