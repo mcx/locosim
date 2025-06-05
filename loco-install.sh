@@ -1,26 +1,50 @@
 #!/bin/bash
 
+ubuntu_version=0
 install_realsense_camera=false
 install_graspin=false
-while getopts ":hrg" option; do
+
+# Parse command-line options
+while getopts ":u:hrg" option; do
   case $option in
-    r)
-      install_realsense_camera=true
+	u) ubuntu_version=$OPTARG;;
+    r) install_realsense_camera=true;;
+    g) install_graspin=true;;
+    h)
+      echo "Usage: loco-install -u <ubuntu_version> [-r] [-g] [-h]"
+      echo "  -u <ubuntu_version>: Supported versions are 18 or 20."
+      echo "  -r: Install RealSense camera packages."
+      echo "  -g: Install GraspIn packages."
+      echo "  -h: Display this help message."
+      echo "Note: Options can be placed before or after the version number."
+      exit 0
       ;;
-    g)
-      install_graspin=true
-      ;;
-    *)
-      echo "Usage: loco-install <ubuntu_version_number> [-r] [-g] [-h]"
+    \?) # Handle invalid options
+      echo "Usage: loco-install -u <ubuntu_version> [-r] [-g] [-h]"
       exit 1
       ;;
   esac
 done
 
 # Check Ubuntu supported version
-if [ "$1" != "18" ] && [ "$1" != "20" ]; then
+if [ "$ubuntu_version" != "18" ] && [ "$ubuntu_version" != "20" ]; then
 	echo "Ubuntu versions supported are 18 or 20"
 	exit 1
+fi
+
+# Set up prefix to use for installation
+if [ "$ubuntu_version" == "18" ]; then
+	PYTHON_PREFIX="python3"
+	PYTHON_VERSION="3.5"
+	ROBOTPKG_PYTHON_VERSION="py35"
+	PIP_PREFIX="pip3"
+	ROS_VERSION="bionic"
+elif [ "$ubuntu_version" == "20" ]; then
+	PYTHON_PREFIX="python3"
+    PYTHON_VERSION="3.8"
+    ROBOTPKG_PYTHON_VERSION="py38"
+    PIP_PREFIX="pip3"
+    ROS_VERSION="noetic"
 fi
 
 # Install base libraries
@@ -50,21 +74,6 @@ curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE
 
 curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
 
-# Set up prefix to use for installation
-if [ "$1" == "18" ]; then
-	PYTHON_PREFIX="python3"
-	PYTHON_VERSION="3.5"
-	ROBOTPKG_PYTHON_VERSION="py35"
-	PIP_PREFIX="pip3"
-	ROS_VERSION="bionic"
-elif [ "$1" == "20" ]; then
-	PYTHON_PREFIX="python3"
-    PYTHON_VERSION="3.8"
-    ROBOTPKG_PYTHON_VERSION="py38"
-    PIP_PREFIX="pip3"
-    ROS_VERSION="noetic"
-fi
-
 # Download packages
 sudo apt install -y "ros-$ROS_VERSION-desktop-full"
 
@@ -80,13 +89,13 @@ sudo apt install -y "ros-$ROS_VERSION-urdfdom-py" \
 "ros-$ROS_VERSION-joint-trajectory-controller" \ 
 "ros-$ROS_VERSION-catkin"
 
-if [ $install_realsense_camera ]; then
+if [ $install_realsense_camera = true ]; then
 	sudo apt install -y "ros-$ROS_VERSION-openni2-launch" \
 	"ros-$ROS_VERSION-openni2-camera" \
 	"ros-$ROS_VERSION-realsense2-description"
 fi
 
-if [ $install_graspin ]; then
+if [ $install_graspin = true ]; then
 	sudo apt install -y "ros-$ROS_VERSION-eigen-conversions" \
 	"ros-$ROS_VERSION-object-recognition-msgs" \
 	"ros-$ROS_VERSION-roslint"
