@@ -9,7 +9,7 @@ Installation with Docker
 
 ```
 $sudo apt install curl
-$curl -o install_docker.sh https://raw.githubusercontent.com/idra-lab/locosim/refs/heads/master/loco-install.sh
+$curl -o install_docker.sh https://raw.githubusercontent.com/idra-lab/locosim/refs/heads/master/docker/install_docker.sh
 $sudo chmod +x install_docker.sh
 $./install_docker.sh
 ```
