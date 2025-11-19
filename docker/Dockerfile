@@ -65,6 +65,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-noetic-imu-tools \
     ros-noetic-tf2-ros \
     ros-noetic-tf2-tools \
+    ros-noetic-industrial-robot-status-controller \
     rospack-tools \ 
     && rm -rf /var/lib/apt/lists/*
 
@@ -142,7 +143,7 @@ RUN echo '#!/bin/bash' >> /etc/bash.bashrc && \
     echo '[ -f /root/ros_ws/install/setup.bash ] && source /root/ros_ws/install/setup.bash' >> /etc/bash.bashrc && \
     echo 'export LOCOSIM_DIR=/root/ros_ws/src/locosim' >> /etc/bash.bashrc && \
     echo 'export PATH=/opt/openrobots/bin:$PATH' >> /etc/bash.bashrc && \
-    echo '/opt/openrobots/lib/python3.8/site-packages:$LOCOSIM_DIR/robot_control:$PYTHONPATH' >> /etc/bash.bashrc && \
+    echo 'export PYTHONPATH=/opt/openrobots/lib/python3.8/site-packages:$LOCOSIM_DIR/robot_control:$PYTHONPATH' >> /etc/bash.bashrc && \
     echo 'export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/opt/openrobots/share/' >> /etc/bash.bashrc && \
     echo 'alias pycharm='\''/root/pycharm/bin/pycharm.sh'\''' >> /etc/bash.bashrc
 RUN chmod +x /etc/bash.bashrc
