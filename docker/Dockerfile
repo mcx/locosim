@@ -67,6 +67,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-noetic-tf2-tools \
     ros-noetic-industrial-robot-status-controller \
     rospack-tools \ 
+    ros-noetic-urdfdom-tools \
     && rm -rf /var/lib/apt/lists/*
 
 # -----------------------------
@@ -108,7 +109,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Utilities and GUI dependencies
 # -----------------------------
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    gedit gitg git-cola \
+    gedit gitg git-cola  iputils-ping  net-tools \
     libxext6 libxrender1 libxtst6 libxi6 libfreetype6 fonts-dejavu \
     libgl1-mesa-glx libgtk-3-0 \
     && rm -rf /var/lib/apt/lists/*
