@@ -50,7 +50,8 @@ $ gedit ~/.bashrc
 - and add the following lines at the bottom of the file:
 
 ```bash
-alias lab_locosim='xhost +local:root; docker rm -f docker_container || true; \
+alias lab_locosim='xhost +local:root; \
+docker rm -f docker_container >/dev/null 2>&1 || true; \
 docker run --name docker_container --gpus all \
 --workdir="/root" \
 --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
@@ -61,7 +62,7 @@ docker run --name docker_container --gpus all \
 --privileged --shm-size 2g --rm \
 --volume $HOME/trento_lab_home:/root \
 mfocchi/trento_lab_framework:locosim'
-alias dock-other='docker exec -it docker_container /bin/bash'
+alias dock-other='docker exec -it docker_container /bin/bash >/dev/null 2>&1  || echo "Container not running"'
 ```
 
 - Load the .bashrc script (next time you will open a terminal this will be automatically loaded).

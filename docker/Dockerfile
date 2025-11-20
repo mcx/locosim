@@ -95,13 +95,8 @@ RUN set -eux; \
     curl -fsSL http://robotpkg.openrobots.org/packages/debian/robotpkg.key \
       | gpg --dearmor -o /etc/apt/keyrings/robotpkg-archive-keyring.gpg; \
     chmod 0644 /etc/apt/keyrings/robotpkg-archive-keyring.gpg; \
-    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/robotpkg-archive-keyring.gpg] \
-http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -sc) robotpkg" \
-      > /etc/apt/sources.list.d/robotpkg.list; \
-    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/robotpkg-archive-keyring.gpg] \
-http://robotpkg.openrobots.org/wip/packages/debian/pub $(lsb_release -sc) robotpkg" \
-      >> /etc/apt/sources.list.d/robotpkg.list; \
-    apt-get update
+    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/robotpkg-archive-keyring.gpg] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -sc) robotpkg"      >> /etc/apt/sources.list.d/robotpkg.list; \
+    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/robotpkg-archive-keyring.gpg] http://robotpkg.openrobots.org/wip/packages/debian/pub $(lsb_release -sc) robotpkg"  >> /etc/apt/sources.list.d/robotpkg.list; 
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     robotpkg-py38-eigenpy \
@@ -143,6 +138,7 @@ RUN echo '#!/bin/bash' >> /etc/bash.bashrc && \
     echo '[ -f /root/ros_ws/install/setup.bash ] && source /root/ros_ws/install/setup.bash' >> /etc/bash.bashrc && \
     echo 'export LOCOSIM_DIR=/root/ros_ws/src/locosim' >> /etc/bash.bashrc && \
     echo 'export PATH=/opt/openrobots/bin:$PATH' >> /etc/bash.bashrc && \
+    echo 'export DISABLE_ROS1_EOL_WARNINGS=1' >> /etc/bash.bashrc && \    
     echo 'export PYTHONPATH=/opt/openrobots/lib/python3.8/site-packages:$LOCOSIM_DIR/robot_control:$PYTHONPATH' >> /etc/bash.bashrc && \
     echo 'export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/opt/openrobots/share/' >> /etc/bash.bashrc && \
     echo 'alias pycharm='\''/root/pycharm/bin/pycharm.sh'\''' >> /etc/bash.bashrc
