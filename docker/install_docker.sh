@@ -17,36 +17,40 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-        # Mac OSX
-        echo "install for MAC"
+    echo "=== Installing for macOS (Intel or Apple Silicon) ==="
 
-	brew install -y curl
-	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
-	brew   update
-	brew install docker-ce nvidia-docker2  build-essential cmake
+    ARCH=$(uname -m)
+    echo "Detected architecture: $ARCH"
 
-	# Add user to docker's group
-	sudo usermod -aG docker ${USER}
-	
+    # Install Homebrew if missing
+    if ! command -v brew &> /dev/null; then
+        echo "Homebrew not found. Installing..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    else
+        echo "Homebrew already installed."
+    fi
 
+    # Install Docker Desktop (auto-selects Intel/ARM build)
+    if ! ls /Applications | grep -q "Docker.app"; then
+        echo "Installing Docker Desktop..."
+        brew install --cask docker
+    else
+        echo "Docker Desktop already installed."
+    fi
+
+    # Intel-specific notice
+    if [[ "$ARCH" == "x86_64" ]]; then
+        echo "Intel Mac detected — using x86_64 Docker Desktop build."
+    fi
+
+    # Apple Silicon notice
+    if [[ "$ARCH" == "arm64" ]]; then
+        echo "Apple Silicon detected — using ARM Docker Desktop build."
+    fi
+
+    echo "⚠️  IMPORTANT: You must open Docker.app manually once after installation."
 fi
 
-# insert/update hosts entry
-ip_address="127.0.0.1"
-host_name="docker"
-# find existing instances in the host file and save the line numbers
-matches_in_hosts="$(grep -n $host_name /etc/hosts | cut -f1 -d:)"
-host_entry="${ip_address} ${host_name}"
-
-echo "Please enter your password if requested."
-
-if [ ! -z "$matches_in_hosts" ]
-then
-    echo "Docker entry already existing in etc/hosts."
-else
-    echo "Adding new hosts entry."
-    echo "$host_entry" | sudo tee -a /etc/hosts > /dev/null
-fi
 
 
 if [ -d "${HOME}/trento_lab_home" ]; then

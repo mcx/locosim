@@ -1,17 +1,13 @@
 Installation with Docker
 ================================================================================
 
-- Run the script 
+- Run the script install_docker.sh. This script is important because it installs the docker client on your machine and adds to your user the privileges to run the docker images, and create a new folder.
 
-  [install_docker.sh]: https://github.com/mfocchi/locosim/tree/master/docker/install_docker.sh
-
-   This script is important because it installs the docker client on your machine and adds to your user the privileges to run the docker images
 
 ```
-$sudo apt install curl
-$curl -o install_docker.sh https://raw.githubusercontent.com/idra-lab/locosim/refs/heads/master/docker/install_docker.sh
-$sudo chmod +x install_docker.sh
-$./install_docker.sh
+curl -fsSL -o install_docker.sh https://raw.githubusercontent.com/idra-lab/locosim/master/docker/install_docker.sh
+chmod +x install_docker.sh
+./install_docker.sh
 ```
 - If everything went smooth you should read: **To start docker, reboot the system!** You can now restart the PC so that all changes made can be applied.
 - If you look into your **host** Ubuntu home directory, you will see that the **trento_lab_home** directory has been created with **/ros_ws/src** subfolders.
@@ -25,51 +21,39 @@ $ git clone https://github.com/idra-lab/locosim.git --recursive
 
 **NOTE:**  when you clone the code, be sure to have a stable and fast connection. Before continuing, be sure you properly checked out **all** the submodules without any error.
 
-- Now you have two options: 
-
-  A) Download the docker image from here:	
-
-  ```
-  docker pull mfocchi/trento_lab_framework:locosim 
-  ```
-
-  B) compile the docker image yourself:
+- Now you should compile the docker image yourself for ARM:
 
   ```
   cd ~/trento_lab_home/ros_ws/src/locosim/docker
-  docker build -t mfocchi/trento_lab_framework:locosim -f Dockerfile .
+  docker build  --platform linux/arm64 - -t mfocchi/trento_lab_framework:locosim -f Dockerfile .
   ```
-
-- Now, you need to configure the bash environment of your Ubuntu machine as follows. Open the `bashrc` file from your home folder:
+  
+- Now, you need to configure the bash environment of your Ubuntu machine as follows. Open the `.zshrc` file from your home folder:
 
 
 ```
-$ gedit ~/.bashrc
+$ gedit ~/.zshrc
 ```
 
 - and add the following lines at the bottom of the file:
 
 ```bash
-alias lab_locosim='xhost +local:root; \
-docker rm -f docker_container >/dev/null 2>&1 || true; \
-docker run --name docker_container --gpus all \
+alias lab_locosim='docker rm -f docker_container >/dev/null 2>&1 || true; \
+docker run --name docker_container \
 --workdir="/root" \
+--volume="$HOME/trento_lab_home:/root" \
 --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
---device=/dev/dri:/dev/dri \
---network=host --hostname=docker -it \
---env="DISPLAY=$DISPLAY" \
---env="QT_X11_NO_MITSHM=1" \
---privileged --shm-size 2g --rm \
---volume $HOME/trento_lab_home:/root \
+--env="DISPLAY=host.docker.internal:0" \
+--privileged --shm-size=2g --rm \
 mfocchi/trento_lab_framework:locosim'
 alias dock-other='docker exec -it docker_container /bin/bash >/dev/null 2>&1  || echo "Container not running"'
 ```
 
-- Load the .bashrc script (next time you will open a terminal this will be automatically loaded).
+- Load the ..zshrc script (next time you will open a terminal this will be automatically loaded).
 
 
 ```
-$ source ~/.bashrc
+$ source ~/.zshrc
 ```
 
 **NOTE!** If you do not have an Nvidia card in your computer, you should skip the parts about the installation of the drivers, and you can still run the docker **without** the **--gpus all**  in the **lab_locosim** alias.

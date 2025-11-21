@@ -20,7 +20,9 @@ You have 3 ways to get the Locosim code:   1) with docker 2) by manual installat
 
 You can alternatively use a docker image that contains Ubuntu 20 and all the required dependencies already installed (you will need only to clone the code and compile it).
 
-**LINUX**/**MAC:** follow this  [procedure](https://github.com/idra-lab/locosim/blob/master/install_docker.md)
+**LINUX**: follow this  [procedure](https://github.com/idra-lab/locosim/blob/master/install_docker_linux.md).
+
+**MAC:** follow this  [procedure](https://github.com/idra-lab/locosim/blob/master/install_docker_mac.md).
 
 **WINDOWS:** follow this [procedure](https://github.com/idra-lab/locosim/blob/master/install_docker_windows.md).
 
