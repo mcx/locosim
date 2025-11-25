@@ -35,21 +35,22 @@ $ git clone https://github.com/idra-lab/locosim.git --recursive
 $ gedit ~/.zshrc
 ```
 
+- Make sure **XQuartz → Preferences → Security → “Allow connections from network clients”** is checked
 - and add the following lines at the bottom of the file:
 
 ```bash
-alias lab_locosim='docker rm -f docker_container >/dev/null 2>&1 || true; \
-docker run --name docker_container \
---workdir="/root" \
---volume="$HOME/trento_lab_home:/root" \
---volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
---env="DISPLAY=host.docker.internal:0" \
---privileged --shm-size=2g --rm \
-mfocchi/trento_lab_framework:locosim'
+alias lab_locosim='xhost +127.0.0.1; \
+docker rm -f docker_container >/dev/null 2>&1 || true; \
+docker run --platform linux/amd64 --name docker_container \
+  --workdir="/root"  -it \
+  --volume="$HOME/trento_lab_home:/root" \
+  --env="DISPLAY=host.docker.internal:0" \
+  --privileged --shm-size=2g --rm \
+  mfocchi/trento_lab_framework:locosim'
 alias dock-other='docker exec -it docker_container /bin/bash'
 ```
 
-- Load the ..zshrc script (next time you will open a terminal this will be automatically loaded).
+- Load the .zshrc script (next time you will open a terminal this will be automatically loaded).
 
 
 ```
@@ -121,31 +122,4 @@ $ docker commit ASH mfocchi/trento_lab_framework:introrob
 ```
 
 
-
-# Docker Issues (optional)
-
-<a name="docker_issues"></a>
-
-Check this section only if you had any issues in running the docker!
-
-- When launching any graphical interface inside docker (e.g. pycharm or gedit) you get this error:
-
-```
-No protocol specified
-Unable to init server: Could not connect: Connection refused
-
-(gedit:97): Gtk-WARNING **: 08:21:29.767: cannot open display: :0.0
-```
-
-It means that docker is not copying properly the value of you DISPLAY environment variable, you could try to solve it in this way, in a terminal **outside docker** launch:
-
-```
-echo $DISPLAY
-```
-
-and you will obtain a **value**  (e.g. :0) if you run the same command in a docker terminal the value will be different, then in the .bashrc inside the docker add the following line:
-
-```
-export DISPLAY=value
-```
 
