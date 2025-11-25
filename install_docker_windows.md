@@ -15,7 +15,7 @@ wsl --install
 
 3. From Start run  Ubuntu 20.04.06 LTS, this is the procedure you should use to open a new terminal (do not use WSL).
 
-4. follow this  [procedure](https://github.com/idra-lab/locosim/blob/master/install_docker.md)
+4. follow this  [procedure](https://github.com/idra-lab/locosim/blob/master/install_docker_linux.md)
 
 
 
