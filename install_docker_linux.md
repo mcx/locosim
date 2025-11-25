@@ -59,7 +59,7 @@ docker run --name docker_container --gpus all \
 --privileged --shm-size 2g --rm \
 --volume $HOME/trento_lab_home:/root \
 mfocchi/trento_lab_framework:locosim'
-alias dock-other='docker exec -it docker_container /bin/bash >/dev/null 2>&1  || echo "Container not running"'
+alias dock-other='docker exec -it docker_container /bin/bash'
 ```
 
 - Load the .bashrc script (next time you will open a terminal this will be automatically loaded).

@@ -46,7 +46,7 @@ docker run --name docker_container \
 --env="DISPLAY=host.docker.internal:0" \
 --privileged --shm-size=2g --rm \
 mfocchi/trento_lab_framework:locosim'
-alias dock-other='docker exec -it docker_container /bin/bash >/dev/null 2>&1  || echo "Container not running"'
+alias dock-other='docker exec -it docker_container /bin/bash'
 ```
 
 - Load the ..zshrc script (next time you will open a terminal this will be automatically loaded).
