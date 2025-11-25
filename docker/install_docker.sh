@@ -51,6 +51,24 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "⚠️  IMPORTANT: You must open Docker.app manually once after installation."
 fi
 
+# insert/update hosts entry
+ip_address="127.0.0.1"
+host_name="docker"
+docker_folder="trento_lab_home"
+# find existing instances in the host file and save the line numbers
+matches_in_hosts="$(grep -n $host_name /etc/hosts | cut -f1 -d:)"
+host_entry="${ip_address} ${host_name}"
+
+echo "Please enter your password if requested."
+
+if [ ! -z "$matches_in_hosts" ]
+then
+    echo "Docker entry already existing in etc/hosts."
+else
+    echo "Adding new hosts entry."
+    echo "$host_entry" | sudo tee -a /etc/hosts > /dev/null
+fi
+
 
 
 if [ -d "${HOME}/trento_lab_home" ]; then
@@ -60,10 +78,18 @@ else
     mkdir -p ${HOME}/trento_lab_home/ros_ws/src
 fi
 
-echo "Copying .ssh folder with user permissions"
-sudo cp -R $HOME/.ssh/ $HOME/trento_lab_home/.ssh/
-sudo chown -R $USER:$USER $HOME/trento_lab_home/.ssh 
+# Check if source .ssh exists
+if [ -d "$HOME/.ssh" ]; then
+    echo "Copying .ssh folder with user permissions"
+    # Ensure destination exists
+    mkdir -p "$HOME/trento_lab_home/.ssh"
 
+    # Copy contents
+    sudo cp -R "$HOME/.ssh/"* "$HOME/trento_lab_home/.ssh/"
+
+    # Set ownership
+    sudo chown -R $USER:$USER "$HOME/trento_lab_home/.ssh"
+fi
 
 
 
