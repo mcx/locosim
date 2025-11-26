@@ -41,7 +41,7 @@ $ gedit ~/.zshrc
 ```bash
 alias lab_locosim='xhost +127.0.0.1; \
 docker rm -f docker_container >/dev/null 2>&1 || true; \
-docker run --platform linux/amd64 --name docker_container \
+docker run  --name docker_container \
   --workdir="/root"  -it \
   --volume="$HOME/trento_lab_home:/root" \
   --env="DISPLAY=host.docker.internal:0" \
