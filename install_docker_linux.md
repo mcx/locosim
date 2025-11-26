@@ -81,8 +81,6 @@ $ lab_locosim
 - the **lab_locosim** script will mount the folder `~/trento_lab_home` on your **host** computer. Inside of all of the docker images this folder is mapped to `$HOME`.This means that any files you place   in your docker $HOME folder will survive the stop/starting of a new docker container. All other files and installed programs will disappear on the next run. 
 - The alias **lab_locosim** needs to be called only ONCE and opens the image. To link other terminals to the same image you should run **dock-other**, this second command will "**attach**" to the image opened previously by calling the **lab_locosim** alias.  You can call **lab_locosim** only once and **dock-other** as many times you need to open multiple terminals.
 
-**NOTE!** If you do not have an Nvidia card in your computer, you should skip the parts about the installation of the drivers, and you can still run the docker **without** the **--gpus all ** flag in the **lab_locosim** alias. 
-
 
 
 # Compiling the code
