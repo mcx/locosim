@@ -18,10 +18,8 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	if [ -n "$WSL_DISTRO_NAME" ]; then
     		echo "Running inside WSL"
 		# Overwrite /etc/wsl.conf with the desired network section
-		sudo tee /etc/wsl.conf > /dev/null <<EOF
-[network]
-generateHosts = false
-EOF
+		echo "[network]" | sudo tee -a /etc/wsl.conf > /dev/null
+    		echo "generateHosts = false" | sudo tee -a /etc/wsl.conf > /dev/null
 	else
     		echo "Not running inside WSL"
 	fi
