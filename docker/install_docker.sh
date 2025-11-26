@@ -15,6 +15,17 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	# Add user to docker's group
 	sudo usermod -aG docker ${USER}
 	
+	if [ -n "$WSL_DISTRO_NAME" ]; then
+    		echo "Running inside WSL"
+		# Overwrite /etc/wsl.conf with the desired network section
+		sudo tee /etc/wsl.conf > /dev/null <<EOF
+[network]
+generateHosts = false
+EOF
+	else
+    		echo "Not running inside WSL"
+	fi
+	
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "=== Installing for macOS (Intel or Apple Silicon) ==="
@@ -49,6 +60,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 
     echo "⚠️  IMPORTANT: You must open Docker.app manually once after installation."
+    
+
+
 fi
 
 # insert/update hosts entry
