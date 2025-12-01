@@ -160,3 +160,18 @@ and you will obtain a **value**  (e.g. :0) if you run the same command in a dock
 export DISPLAY=value
 ```
 
+- If you still have issues because of the x11 library maybe you are running on wayland, be sure you have installed the qt5 library:
+
+  ```
+  apt install -y qt5-default
+  ```
+
+  and add this to your .bashrc
+
+  ```
+  export XDG_SESSION_TYPE=x11
+  ```
+
+  
+
+  
