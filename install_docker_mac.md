@@ -46,7 +46,6 @@ mkdir -p ~/locosim/ros_ws/src
 ```
 
 Then navigate to it and clone the locosim repository with:
-
 ```bash
 cd ~/locosim/ros_ws/src
 git clone https://github.com/idra-lab/locosim.git
@@ -59,13 +58,16 @@ git submodule update --init
 
 ## Pulling the Docker image
 
-- Download the docker image with:
+- Download ONE of the docker images:
 
 ```bash
 docker pull chaff800/locosim:noetic
+docker pull chaff800/locosim:noetic_pycharm
 ```
 
-Which is based on [this image](https://hub.docker.com/r/tiryoh/ros-desktop-vnc).
+The second image has PyCharm already installed based on [Readme.md](README.md) instructions.
+
+The images are based on [this image](https://hub.docker.com/r/tiryoh/ros-desktop-vnc).
 
 Change its name so that it is easier to remember:
 
@@ -122,7 +124,7 @@ source /home/ubuntu/ros_ws/install/setup.bash
 
 All dependencies should be already installed in the image. If you need to install new packages, remember to commit the image after installing them (see section **Saving the image (optional)** below).
 
-Now you are ready to run the code as explained  [here](https://github.com/idra-lab/locosim?tab=readme-ov-file#running-the-software-from-python-ide-pycharm).
+Obviously, when you run the container again, you need to use the new image name instead of `locosim:noetic` in the docker run command.
 
 **Note**: since we have mounted the `locosim` folder as a volume, the compiled files will be stored on your host Mac machine in the same folder. This means that if you re-create the container, you do not need to re-compile the code again unless you delete the compiled files from your host machine. If you do not want to have the compiled files on your host machine, you can remove the ` -v` option from the docker run command above. In this case, the compiled files will be stored inside the container and will be lost when you delete the container (unless you commit the image each time before exiting).
 
@@ -139,6 +141,7 @@ Let's say that you have installed new packages inside the container or have made
 ```bash
 docker commit ros_noetic_c <name you want to give to the new image>
 ```
+9. Follow the instructions in the main [README](README.md) file to run the code. 
 
 Add `-m "your message"` to add a commit message.
 
