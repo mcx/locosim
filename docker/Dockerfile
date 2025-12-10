@@ -67,7 +67,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-noetic-tf2-tools \
     ros-noetic-industrial-robot-status-controller \
     rospack-tools \ 
-    ros-noetic-urdfdom-tools \
+    liburdfdom-tools \
     && rm -rf /var/lib/apt/lists/*
 
 # -----------------------------
