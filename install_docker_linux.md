@@ -128,7 +128,7 @@ $ docker ps
 14. Commit the docker image (next time you will open an new container it will retain the changes done to the image without loosing them):
 
 ```powershell
-$ docker commit ASH mfocchi/trento_lab_framework:introrob
+$ docker commit ASH mfocchi/trento_lab_framework:locosim
 ```
 
 
