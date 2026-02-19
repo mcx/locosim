@@ -76,4 +76,4 @@
 	url = https://github.com/idra-lab/anymal_d_description.git
 [submodule "robot_descriptions/limo_description"]
 	path = robot_descriptions/limo_description
-	url = git@github.com:idra-lab/limo_description.git
+	url = https://github.com/idra-lab/limo_description.git
