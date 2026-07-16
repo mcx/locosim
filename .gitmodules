@@ -77,3 +77,6 @@
 [submodule "robot_descriptions/limo_description"]
 	path = robot_descriptions/limo_description
 	url = https://github.com/idra-lab/limo_description.git
+[submodule "robot_hardware_interfaces/go2_hardware_interface"]
+	path = robot_hardware_interfaces/go2_hardware_interface
+	url = git@github.com:idra-lab/go2_hardware_interface.git
